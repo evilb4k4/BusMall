@@ -1,44 +1,85 @@
 'use strict';
 var productInfo = [];
+var photos = [
+  new ProductPictures('bag', 'bag.jpg'),
+  new ProductPictures('banana', 'banana.jpg'),
+  new ProductPictures('bathroom', 'bathroom.jpg'),
+  new ProductPictures('rain', 'boots.jpg'),
+  new ProductPictures('breakfast', 'breakfast.jpg'),
 
-var productsNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'drangon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+  new ProductPictures('bubblegum', 'bubblegum.jpg'),
+  new ProductPictures('chair', 'chair.jpg'),
+  new ProductPictures('cthulhu', 'cthulhu.jpg'),
+  new ProductPictures('dog-duck', 'dog-duck.jpg'),
+  new ProductPictures('dragon', 'dragon.jpg'),
 
-var productImages = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
+  new ProductPictures('pen', 'pen.jpg'),
+  new ProductPictures('pet-sweep', 'pet-sweep.jpg'),
+  new ProductPictures('scissors', 'scissors.jpg'),
+  new ProductPictures('shark', 'shark.jpg'),
+  new ProductPictures('tauntaun', 'tauntaun.jpg'),
+
+  new ProductPictures('sweep', 'sweep.png'),
+  new ProductPictures('unicorn', 'unicorn.jpg'),
+  new ProductPictures('usb', 'usb.gif'),
+  new ProductPictures('water-can', 'water-can.jpg'),
+  new ProductPictures('wine-glass', 'wine-glass.jpg'),
+];
 var img1 = document.getElementById('Picture1');
 var img2 = document.getElementById('Picture2');
 var img3 = document.getElementById('Picture3');
 
 function ProductPictures(itemName, imagePath) {
   this.itemName = itemName;
-  this.imagePath = imagePath;
+  this.imagePath = './assets/' + imagePath;
   this.imageClick = 0;
   this.imageShown = 0;
   productInfo.push(this);
 };
-// for loop to run thru the product images array
-for (var i = 0; i < productImages.length; i++) {
-  var filePath = './assets/' + productImages[i];
-  new ProductPictures(productsNames[i], filePath);
-}
-// generate random images
+//funstion to get random images from the photos array.
 function randomImgIndex(){
-  console.log('It works');
-  return Math.floor(Math.random() * productImages.length);
+  return Math.floor(Math.random() * photos.length);
 };
-//funtion to get images to change on click.
-function onClick() {
-  var selectImg1 = productInfo[randomImgIndex()];
-  var selectImg2 = productInfo[randomImgIndex()];
-  var selectImg3 = productInfo[randomImgIndex()];
+var photosOnSecondToLastScreen = [];
+var photosOnPreviousScreen = [];
+var photosOnScreen = [];
+
+// get three random photos
+function getThreeRandomPhotos(){
+
+  photos = photos.concat(photosOnSecondToLastScreen);
+  photosOnSecondToLastScreen = photosOnPreviousScreen;
+  photosOnPreviousScreen = photosOnScreen;
+  photosOnScreen = [];
+
+  // create a var nextPhoto to keep track of the next Photo we take out of photos
+  // splice out an photo object (wich removes it from photos)
+  var nextPhoto = photos.splice(randomImgIndex(photos), 1);
+  // concat the array returned by splice onto photos onScreen
+  photosOnScreen = photosOnScreen.concat(nextPhoto);
+  // repeat two more times to get three images
+  nextPhoto = photos.splice(randomImgIndex(photos), 1);
+  photosOnScreen = photosOnScreen.concat(nextPhoto);
+  nextPhoto = photos.splice(randomImgIndex(photos), 1);
+  photosOnScreen = photosOnScreen.concat(nextPhoto);
+
+  var selectImg1 = photosOnScreen[0];
+  var selectImg2 = photosOnScreen[1];
+  var selectImg3 = photosOnScreen[2];
   img1.src = selectImg1.imagePath;
   img2.src = selectImg2.imagePath;
   img3.src = selectImg3.imagePath;
   selectImg1.imageShown++;
   selectImg2.imageShown++;
   selectImg3.imageShown++;
+  // return photosOnScreen;
+
 }
-onClick();
+getThreeRandomPhotos();
+// function onClick() {
+// }
+// onClick();
 //event lisener
-Picture1.addEventListener('click', onClick);
-Picture2.addEventListener('click', onClick);
-Picture3.addEventListener('click', onClick);
+Picture1.addEventListener('click', getThreeRandomPhotos);
+Picture2.addEventListener('click', getThreeRandomPhotos);
+Picture3.addEventListener('click', getThreeRandomPhotos);
