@@ -1,5 +1,6 @@
 'use strict';
 var productInfo = [];
+var totalClicks = 0;
 var photos = [
   new ProductPictures('bag', 'bag.jpg'),
   new ProductPictures('banana', 'banana.jpg'),
@@ -72,14 +73,53 @@ function getThreeRandomPhotos(){
   selectImg1.imageShown++;
   selectImg2.imageShown++;
   selectImg3.imageShown++;
-  // return photosOnScreen;
-
 }
 getThreeRandomPhotos();
-// function onClick() {
-// }
-// onClick();
-//event lisener
-Picture1.addEventListener('click', getThreeRandomPhotos);
-Picture2.addEventListener('click', getThreeRandomPhotos);
-Picture3.addEventListener('click', getThreeRandomPhotos);
+
+var clickLimit = 25;
+function voteForPic1(event) {
+  photosOnScreen[0].imageClick++;
+  getThreeRandomPhotos();
+  totalClicks++;
+  if (totalClicks === clickLimit){
+    Picture1.removeEventListener('click', voteForPic1);
+    displayResults();
+    console.log('it works');
+  }
+};
+function voteForPic2(event) {
+  photosOnScreen[1].imageClick++;
+  getThreeRandomPhotos();
+  totalClicks++;
+  if (totalClicks === clickLimit){
+    Picture2.removeEventListener('click', voteForPic2);
+    displayResults();
+    console.log('it works');
+  }
+};
+function voteForPic3(event) {
+  photosOnScreen[2].imageClick++;
+  getThreeRandomPhotos();
+  totalClicks++;
+  if (totalClicks === clickLimit){
+    Picture3.removeEventListener('click', voteForPic3);
+    displayResults();
+    console.log('it works');
+  }
+};
+
+Picture1.addEventListener('click', voteForPic1);
+Picture2.addEventListener('click', voteForPic2);
+Picture3.addEventListener('click', voteForPic3);
+
+function displayResults(){
+  var content = document.getElementById('content');
+  var ul = document.createElement('ul');
+  content.appendChild(ul);
+  for (var i = 0; i < productInfo.length; i++) {
+    var li = document.createElement('li');
+    var dataStr = productInfo[i].imageClick + ' clicks for ' + productInfo[i].itemName;
+    li.innerText = dataStr;
+    ul.appendChild(li);
+  }
+}
