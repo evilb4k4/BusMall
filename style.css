@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: grey;
+}
+
+html, body {
+  height: 100%;
+}
+header{
+    width: 764px;
+    height: 246px;
+    margin: auto;
+    font-family: impact;
+}
+img{
+  width: 250px;
+  height: 190px;
+
+}
+.imagesBlock{
+  width: 260px;
+  height: 270px;
+  border: 5px solid #000;
+  margin: 0 15px;
+}
+div{
+  margin-top: 20px;
+}
+main{
+  padding-top: 85px;
+}
