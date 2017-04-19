@@ -1,4 +1,5 @@
 'use strict';
+var imageDiv = document.getElementById('imageDiv');
 var pictureNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'drangon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var productInfo = [];
 var totalClicks = 0;
@@ -115,6 +116,7 @@ function voteForPic3(event) {
 var clickResults = [];
 var productShowResults = [];
 function displayResults() {
+  imageDiv.textContent = '';
   for(var i = 0; i < productInfo.length; i++){
     clickResults.push(productInfo[i].imageClick);
   };
@@ -144,7 +146,7 @@ function showChart() {
         yAxes: [{
           ticks: {
             beginAtZero:true,
-            // max: 100
+            max: 25,
           }
         }]
       }
