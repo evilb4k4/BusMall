@@ -77,15 +77,16 @@ function getThreeRandomPhotos(){
   selectImg3.imageShown++;
 }
 getThreeRandomPhotos();
+
 function updatedTotal() {
-  if(localStorage.sumOfDataArray){
-    var someNewArray = JSON.parse(localStorage.sumOfDataArray);
+  if(localStorage.voteTotals){
+    var someNewArray = JSON.parse(localStorage.voteTotals);
     for(var i = 0; i < someNewArray.length; i++){
       productInfo[i].imageClick += someNewArray[i].imageClick;
     }
   }
-  if(localStorage.sumOfDataArray){
-    var someNewArray = JSON.parse(localStorage.sumOfDataArray);
+  if(localStorage.voteTotals){
+    var someNewArray = JSON.parse(localStorage.voteTotals);
     for(var i = 0; i < someNewArray.length; i++){
       productInfo[i].imageShown += someNewArray[i].imageShown;
     }
@@ -99,7 +100,7 @@ function voteForPic1(event) {
   getThreeRandomPhotos();
   totalClicks++;
   if (totalClicks === clickLimit){
-    localStorage.sumOfDataArray = JSON.stringify(productInfo);
+    localStorage.voteTotals = JSON.stringify(productInfo);
     Picture1.removeEventListener('click', voteForPic1);
     displayResults();
     showChart();
@@ -110,7 +111,7 @@ function voteForPic2(event) {
   getThreeRandomPhotos();
   totalClicks++;
   if (totalClicks === clickLimit){
-    localStorage.sumOfDataArray = JSON.stringify(productInfo);
+    localStorage.voteTotals = JSON.stringify(productInfo);
     Picture2.removeEventListener('click', voteForPic2);
     displayResults();
     showChart();
@@ -121,7 +122,7 @@ function voteForPic3(event) {
   getThreeRandomPhotos();
   totalClicks++;
   if (totalClicks === clickLimit){
-    localStorage.sumOfDataArray = JSON.stringify(productInfo);
+    localStorage.voteTotals = JSON.stringify(productInfo);
     Picture3.removeEventListener('click', voteForPic3);
     displayResults();
     showChart();
