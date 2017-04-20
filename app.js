@@ -1,4 +1,6 @@
 'use strict';
+var imageDiv = document.getElementById('imageDiv');
+var pictureNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'drangon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 var productInfo = [];
 var totalClicks = 0;
 var photos = [
@@ -75,6 +77,21 @@ function getThreeRandomPhotos(){
   selectImg3.imageShown++;
 }
 getThreeRandomPhotos();
+function updatedTotal() {
+  if(localStorage.sumOfDataArray){
+    var someNewArray = JSON.parse(localStorage.sumOfDataArray);
+    for(var i = 0; i < someNewArray.length; i++){
+      productInfo[i].imageClick += someNewArray[i].imageClick;
+    }
+  }
+  if(localStorage.sumOfDataArray){
+    var someNewArray = JSON.parse(localStorage.sumOfDataArray);
+    for(var i = 0; i < someNewArray.length; i++){
+      productInfo[i].imageShown += someNewArray[i].imageShown;
+    }
+  }
+}
+updatedTotal();
 
 var clickLimit = 25;
 function voteForPic1(event) {
@@ -82,8 +99,10 @@ function voteForPic1(event) {
   getThreeRandomPhotos();
   totalClicks++;
   if (totalClicks === clickLimit){
+    localStorage.sumOfDataArray = JSON.stringify(productInfo);
     Picture1.removeEventListener('click', voteForPic1);
     displayResults();
+    showChart();
     console.log('it works');
   }
 };
@@ -92,8 +111,10 @@ function voteForPic2(event) {
   getThreeRandomPhotos();
   totalClicks++;
   if (totalClicks === clickLimit){
+    localStorage.sumOfDataArray = JSON.stringify(productInfo);
     Picture2.removeEventListener('click', voteForPic2);
     displayResults();
+    showChart();
     console.log('it works');
   }
 };
@@ -102,24 +123,67 @@ function voteForPic3(event) {
   getThreeRandomPhotos();
   totalClicks++;
   if (totalClicks === clickLimit){
+    localStorage.sumOfDataArray = JSON.stringify(productInfo);
     Picture3.removeEventListener('click', voteForPic3);
     displayResults();
+    showChart();
     console.log('it works');
   }
+};
+
+var clickResults = [];
+var productShowResults = [];
+function displayResults() {
+  imageDiv.textContent = '';
+  for(var i = 0; i < productInfo.length; i++){
+    clickResults.push(productInfo[i].imageClick);
+  };
+  for (var i = 0; i < productInfo.length; i++) {
+    productShowResults.push(productInfo[i].imageShown);
+  }
+};
+function showChart() {
+  var ctx = canvas.getContext('2d');
+  var data = {
+    labels: pictureNames,
+    datasets: [{
+      label: 'Favorite Items',
+      data: clickResults,
+      backgroundColor: 'red'
+    }, {
+      label: 'Times Shown',
+      data: productShowResults,
+      backgroundColor: 'green'
+    }],
+  };
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true,
+            max: 100,
+          }
+        }]
+      }
+    }
+  });
 };
 
 Picture1.addEventListener('click', voteForPic1);
 Picture2.addEventListener('click', voteForPic2);
 Picture3.addEventListener('click', voteForPic3);
 
-function displayResults(){
-  var content = document.getElementById('content');
-  var ul = document.createElement('ul');
-  content.appendChild(ul);
-  for (var i = 0; i < productInfo.length; i++) {
-    var li = document.createElement('li');
-    var dataStr = productInfo[i].imageClick + ' clicks for ' + productInfo[i].itemName;
-    li.innerText = dataStr;
-    ul.appendChild(li);
-  }
-}
+// function displayResults(){
+//   var content = document.getElementById('content');
+//   var ul = document.createElement('ul');
+//   content.appendChild(ul);
+//   for (var i = 0; i < productInfo.length; i++) {
+//     var li = document.createElement('li');
+//     var dataStr = productInfo[i].imageClick + ' clicks for ' + productInfo[i].itemName;
+//     li.innerText = dataStr;
+//     ul.appendChild(li);
+//   }
+// }
