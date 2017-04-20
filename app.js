@@ -103,7 +103,6 @@ function voteForPic1(event) {
     Picture1.removeEventListener('click', voteForPic1);
     displayResults();
     showChart();
-    console.log('it works');
   }
 };
 function voteForPic2(event) {
@@ -115,7 +114,6 @@ function voteForPic2(event) {
     Picture2.removeEventListener('click', voteForPic2);
     displayResults();
     showChart();
-    console.log('it works');
   }
 };
 function voteForPic3(event) {
@@ -127,7 +125,6 @@ function voteForPic3(event) {
     Picture3.removeEventListener('click', voteForPic3);
     displayResults();
     showChart();
-    console.log('it works');
   }
 };
 
@@ -175,15 +172,3 @@ function showChart() {
 Picture1.addEventListener('click', voteForPic1);
 Picture2.addEventListener('click', voteForPic2);
 Picture3.addEventListener('click', voteForPic3);
-
-// function displayResults(){
-//   var content = document.getElementById('content');
-//   var ul = document.createElement('ul');
-//   content.appendChild(ul);
-//   for (var i = 0; i < productInfo.length; i++) {
-//     var li = document.createElement('li');
-//     var dataStr = productInfo[i].imageClick + ' clicks for ' + productInfo[i].itemName;
-//     li.innerText = dataStr;
-//     ul.appendChild(li);
-//   }
-// }
