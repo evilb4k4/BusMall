@@ -99,7 +99,6 @@ function voteForPic1(event) {
     Picture1.removeEventListener('click', voteForPic1);
     displayResults();
     showChart();
-    console.log('it works');
   }
 };
 function voteForPic2(event) {
@@ -111,7 +110,6 @@ function voteForPic2(event) {
     Picture2.removeEventListener('click', voteForPic2);
     displayResults();
     showChart();
-    console.log('it works');
   }
 };
 function voteForPic3(event) {
@@ -123,7 +121,6 @@ function voteForPic3(event) {
     Picture3.removeEventListener('click', voteForPic3);
     displayResults();
     showChart();
-    console.log('it works');
   }
 };
 
