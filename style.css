@@ -11,10 +11,10 @@ html, body {
   height: 100%;
 }
 header{
-    width: 764px;
-    height: 246px;
-    margin: auto;
-    font-family: impact;
+  width: 764px;
+  height: 246px;
+  margin: auto;
+  font-family: impact;
 }
 img{
   width: 250px;
@@ -32,4 +32,25 @@ div{
 }
 main{
   padding-top: 85px;
+}
+#Picture1:hover{
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
+}
+#Picture2:hover{
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
+}
+#Picture3:hover{
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
+}
+#BusPic:hover
+{
+  -webkit-transform: rotateZ(30deg);
+  -ms-transform: rotateZ(30deg);
+  transform: rotateZ(30deg);
 }
