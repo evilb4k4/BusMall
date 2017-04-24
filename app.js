@@ -39,7 +39,6 @@ function ProductPictures(itemName, imagePath) {
   this.imageShown = 0;
   productInfo.push(this);
 };
-//funstion to get random images from the photos array.
 function randomImgIndex(){
   return Math.floor(Math.random() * photos.length);
 };
@@ -49,12 +48,10 @@ var photosOnScreen = [];
 
 // get three random photos
 function getThreeRandomPhotos(){
-
   photos = photos.concat(photosOnSecondToLastScreen);
   photosOnSecondToLastScreen = photosOnPreviousScreen;
   photosOnPreviousScreen = photosOnScreen;
   photosOnScreen = [];
-
   // create a var nextPhoto to keep track of the next Photo we take out of photos
   // splice out an photo object (wich removes it from photos)
   var nextPhoto = photos.splice(randomImgIndex(photos), 1);
@@ -65,7 +62,6 @@ function getThreeRandomPhotos(){
   photosOnScreen = photosOnScreen.concat(nextPhoto);
   nextPhoto = photos.splice(randomImgIndex(photos), 1);
   photosOnScreen = photosOnScreen.concat(nextPhoto);
-
   var selectImg1 = photosOnScreen[0];
   var selectImg2 = photosOnScreen[1];
   var selectImg3 = photosOnScreen[2];
@@ -175,15 +171,3 @@ function showChart() {
 Picture1.addEventListener('click', voteForPic1);
 Picture2.addEventListener('click', voteForPic2);
 Picture3.addEventListener('click', voteForPic3);
-
-// function displayResults(){
-//   var content = document.getElementById('content');
-//   var ul = document.createElement('ul');
-//   content.appendChild(ul);
-//   for (var i = 0; i < productInfo.length; i++) {
-//     var li = document.createElement('li');
-//     var dataStr = productInfo[i].imageClick + ' clicks for ' + productInfo[i].itemName;
-//     li.innerText = dataStr;
-//     ul.appendChild(li);
-//   }
-// }
